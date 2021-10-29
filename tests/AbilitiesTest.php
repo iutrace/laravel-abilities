@@ -15,6 +15,16 @@ class AbilitiesTest extends TestCase
         Gate::policy(Model::class, ModelPolicy::class);
     }
 
+    public function test_can_method()
+    {
+        $model = new Model();
+
+        $this->assertTrue($model->can('allowed'));
+        $this->assertTrue($model->can('allowed-with-response'));
+        $this->assertFalse($model->can('denied'));
+        $this->assertFalse($model->can('denied-with-response'));
+    }
+
     public function test_abilities_attribute()
     {
         $model = new Model();
@@ -43,7 +53,7 @@ class AbilitiesTest extends TestCase
 
         $this->assertTrue($model->policies['guest_allowed']);
         $this->assertFalse($model->policies['allowed_ability_denied_gate']);
-        $this->assertFalse($model->policies['denied_ability_allowed_gate']);
+        $this->assertTrue($model->policies['denied_ability_allowed_gate']);
         $this->assertTrue($model->policies['allowed_ability_allowed_gate']);
         $this->assertFalse($model->policies['denied_ability_denied_gate']);
     }
