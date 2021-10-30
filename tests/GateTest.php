@@ -19,6 +19,11 @@ class GateTest extends TestCase
         Gate::policy(Model::class, ModelPolicy::class);
     }
 
+    public function test_gate_without_model()
+    {
+        $this->assertTrue($this->user->can('allowed-without-model', get_class($this->model)));
+    }
+
     public function test_allowed_ability_denied_gate()
     {
         $this->assertFalse($this->user->can('allowed-ability-denied-gate', $this->model));

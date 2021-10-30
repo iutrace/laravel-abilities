@@ -37,6 +37,14 @@ class AbilitiesTest extends TestCase
         $this->assertEquals(false, $model->abilities['denied_with_response']);
     }
 
+    public function test_abilities_attribute_without_abilities_fail()
+    {
+        $this->expectException(\Exception::class);
+
+        $model = new OtherModel();
+        $model->getAbilitiesAttribute();
+    }
+
     public function test_guest_policies_attribute()
     {
         $model = new Model();
