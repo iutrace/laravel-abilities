@@ -23,6 +23,10 @@ class AbilitiesService
 
     public function can($ability, $model): ?bool
     {
+        if (! is_object($model)) {
+            return null;
+        }
+
         $class = get_class($model);
         $abilitiesClass = $this->resolveAbilitiesClass($class);
 
