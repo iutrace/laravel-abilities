@@ -3,10 +3,7 @@
 namespace Iutrace\Abilities;
 
 use Illuminate\Auth\Access\Response;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
-use ReflectionException;
 use ReflectionObject;
 
 /**
@@ -22,6 +19,11 @@ trait HasAbilities
         /** @var AbilitiesService $abilitiesService */
         $abilitiesService = app(AbilitiesService::class);
         $abilitiesClass = $abilitiesService->resolveAbilitiesClass($this);
+
+        if ($abilitiesClass === null) {
+            throw new \Exception('Abilities class for ' . static::class . ' not found');
+        }
+
         $abilitiesInstance = new $abilitiesClass();
 
         $abilities = [];
